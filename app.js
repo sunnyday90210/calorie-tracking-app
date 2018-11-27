@@ -240,27 +240,25 @@ const App = (function(ItemCtrl, UICtrl) {
     const UISelectors = UICtrl.getSelectors();
 
     // Add item event
-    // prettier-ignore
     document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
 
+    // Disable submit on enter
+    document.addEventListener('keypress', function (e) {
+      if (e.keyCode === 13 || e.which === 13) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
     // Edit Icon Click Event
-    // prettier-ignore
     document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick);
 
     //Update itme event
     document.querySelector(UISelectors.updateBtn).addEventListener('click', itemUpdateSubmit);
     
 
-    // Disable submit on enter
-    document.addEventListener('keypress', function(e) {
-      if(e.keyCode === 13 || e.which === 13) {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-
-    
+    // Back Button
+    document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
 
   };
 
@@ -284,6 +282,7 @@ const App = (function(ItemCtrl, UICtrl) {
 
       // Clear Fields
       UICtrl.clearInput();
+
     }
 
     e.preventDefault();
